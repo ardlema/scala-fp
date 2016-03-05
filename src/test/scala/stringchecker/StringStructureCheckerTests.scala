@@ -38,13 +38,15 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
 
 object StringStructureChecker {
 
+  val charsMap = Map('[' -> ']', '{' -> '}', '(' -> ')')
+
   def check(s: String) = {
     def checkStringFormat(stringAsList: List[Char], auxStack: Stack[Char]): Boolean = {
       stringAsList match {
         case Nil => auxStack.isEmpty
         case head :: tail => {
           head match {
-            case '[' | '{' | '(' => checkStringFormat(tail, auxStack.push(head))
+            case c if charsMap.isDefinedAt(c) => checkStringFormat(tail, auxStack.push(head))
             case ']' => {
               val lastElement = auxStack.headOption
               if (lastElement.isDefined && lastElement.get.equals('[')) checkStringFormat(tail, auxStack.pop)

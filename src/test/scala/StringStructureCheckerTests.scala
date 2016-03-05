@@ -15,5 +15,5 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
 
 object StringStructureChecker {
 
-  def check(s: String) = false
+  def check(s: String) = true
 }

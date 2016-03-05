@@ -10,10 +10,15 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
       val emptyString = ""
       StringStructureChecker.check(emptyString) should be(true)
     }
+    
+    it("should return true for a proper structure string") {
+      val properString = "[({})]"
+      StringStructureChecker.check(properString) should be(true)
+    }
   }
 }
 
 object StringStructureChecker {
 
-  def check(s: String) = true
+  def check(s: String) = if (s.isEmpty) true else false
 }

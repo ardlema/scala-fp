@@ -1,4 +1,4 @@
-package org.ardlema.scalafp
+package list
 
 sealed trait InmutableList[+A] // `List` data type, parameterized on a type, `A`
 case object Nil extends InmutableList[Nothing] // A `List` data constructor representing the empty list

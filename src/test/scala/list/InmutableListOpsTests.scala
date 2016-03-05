@@ -1,4 +1,5 @@
-import org.ardlema.scalafp.InmutableList
+package list
+
 import org.scalatest._
 
 class InmutableListOpsTests extends FunSpec with ShouldMatchers {

@@ -1,4 +1,4 @@
-package org.ardlema.scalafp
+package list
 
 import scala.collection.mutable.ListBuffer
 

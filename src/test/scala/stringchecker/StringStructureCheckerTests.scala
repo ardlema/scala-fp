@@ -24,6 +24,11 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
       StringStructureChecker.check(properString) should be(true)
     }
 
+    it("should return true for a proper structure string with characters at first and at the end") {
+      val properString = "ba[{()}cd]"
+      StringStructureChecker.check(properString) should be(true)
+    }
+
     it("should return false for an unbalanced string") {
       val properString = "[{()}"
       StringStructureChecker.check(properString) should be(false)

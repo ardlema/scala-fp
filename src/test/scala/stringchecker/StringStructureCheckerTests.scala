@@ -18,6 +18,11 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
       val properString = "[{()}]"
       StringStructureChecker.check(properString) should be(true)
     }
+
+    it("should return false for an unbalanced string") {
+      val properString = "[{()}"
+      StringStructureChecker.check(properString) should be(false)
+    }
   }
 }
 
@@ -26,23 +31,23 @@ object StringStructureChecker {
   def check(s: String) = {
     def checkStringFormat(stringAsList: List[Char], auxStack: Stack[Char]): Boolean = {
       stringAsList match {
-        case Nil => true
+        case Nil => auxStack.isEmpty
         case head :: tail => {
           head match {
             case '[' | '{' | '(' => checkStringFormat(tail, auxStack.push(head))
             case ']' => {
-              val lastElement = auxStack.head
-              if (lastElement.equals('[')) checkStringFormat(tail, auxStack.pop)
+              val lastElement = auxStack.headOption
+              if (lastElement.isDefined && lastElement.get.equals('[')) checkStringFormat(tail, auxStack.pop)
               else false
             }
             case ')' => {
-              val lastElement = auxStack.head
-              if (lastElement.equals('(')) checkStringFormat(tail, auxStack.pop)
+              val lastElement = auxStack.headOption
+              if (lastElement.isDefined && lastElement.get.equals('(')) checkStringFormat(tail, auxStack.pop)
               else false
             }
             case '}' => {
-              val lastElement = auxStack.head
-              if (lastElement.equals('{')) checkStringFormat(tail, auxStack.pop)
+              val lastElement = auxStack.headOption
+              if (lastElement.isDefined && lastElement.get.equals('{')) checkStringFormat(tail, auxStack.pop)
               else false
             }
           }

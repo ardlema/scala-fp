@@ -1,5 +1,6 @@
 package stringchecker
 
+import scala.annotation.tailrec
 import scala.collection.immutable.Stack
 import scala.collection.immutable.Stack._
 
@@ -9,6 +10,7 @@ object StringStructureChecker {
   val charsMapSwapped = charsMap map {_.swap}
 
   def check(s: String) = {
+    @tailrec
     def checkStringFormat(stringAsList: List[Char], auxStack: Stack[Char]): Boolean = {
       stringAsList match {
         case Nil => auxStack.isEmpty

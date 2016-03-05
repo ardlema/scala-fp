@@ -14,11 +14,12 @@ object StringStructureChecker {
         case Nil => auxStack.isEmpty
         case head :: tail => {
           head match {
-            case c if charsMap.isDefinedAt(c) => checkStringFormat(tail, auxStack.push(head))
-            case c1 if charsMapSwapped.isDefinedAt(c1) => {
+            case openStructureChar if charsMap.isDefinedAt(openStructureChar) =>
+              checkStringFormat(tail, auxStack.push(head))
+            case closeStructureChar if charsMapSwapped.isDefinedAt(closeStructureChar) => {
               val lastElement = auxStack.headOption
               if (lastElement.isDefined &&
-                lastElement.get.equals(charsMapSwapped.get(c1).get)) checkStringFormat(tail, auxStack.pop)
+                lastElement.get.equals(charsMapSwapped.get(closeStructureChar).get)) checkStringFormat(tail, auxStack.pop)
               else false
             }
             case _ => checkStringFormat(tail, auxStack)

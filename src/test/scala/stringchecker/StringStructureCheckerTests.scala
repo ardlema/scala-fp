@@ -55,6 +55,7 @@ object StringStructureChecker {
               if (lastElement.isDefined && lastElement.get.equals('{')) checkStringFormat(tail, auxStack.pop)
               else false
             }
+            case _ => checkStringFormat(tail, auxStack)
           }
         }
       }

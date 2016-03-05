@@ -19,6 +19,11 @@ class StringStructureCheckerTests extends FunSpec with ShouldMatchers {
       StringStructureChecker.check(properString) should be(true)
     }
 
+    it("should return true for a proper structure string with characters in-between") {
+      val properString = "[b{a()c}d]"
+      StringStructureChecker.check(properString) should be(true)
+    }
+
     it("should return false for an unbalanced string") {
       val properString = "[{()}"
       StringStructureChecker.check(properString) should be(false)
